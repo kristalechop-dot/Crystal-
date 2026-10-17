@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>لوحة البائع | Crystal.shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--em:#064e3b;--em2:#059669;--em-bg:#ecfdf5;--gold:#f59e0b;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f1f5f9;--card:#fff;--red:#dc2626;--blue:#2563eb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+button,input,select{font-family:inherit;font-size:1rem}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{background:#022c22;color:#fff;position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:10px}
+header h1{font-size:1.15rem;font-weight:800}header h1 em{font-style:normal;color:#fde68a}
+.hbtns{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:10px;padding:8px 16px;font-weight:700;cursor:pointer;background:var(--gold);color:#1c1917}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff}
+.btn.sm{padding:5px 12px;font-size:.88rem}
+.btn.wa{background:#25d366;color:#052e16;text-decoration:none;display:inline-block}
+main{padding:20px 0 60px}
+.range{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.range button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer;font-weight:700;color:var(--muted)}
+.range button.on{background:var(--em);color:#fff;border-color:var(--em)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border-radius:14px;padding:16px;border:1px solid var(--line)}
+.kpi small{color:var(--muted);font-weight:500;display:block}
+.kpi b{font-size:1.7rem;font-weight:800;color:var(--em);display:block;line-height:1.3}
+.kpi span{font-size:.82rem;color:var(--muted)}
+.kpi.g b{color:var(--em2)}.kpi.o b{color:#b45309}.kpi.r b{color:var(--red)}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:16px}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:14px;padding:16px;border:1px solid var(--line)}
+.card h3{font-size:1rem;margin-bottom:10px;color:var(--em)}
+.chartbox{position:relative;height:260px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:16px}
+.bars div{margin-bottom:9px}
+.bars .t{display:flex;justify-content:space-between;font-size:.92rem}
+.bars .bar{height:7px;border-radius:7px;background:var(--em-bg);overflow:hidden;margin-top:3px}
+.bars .bar i{display:block;height:100%;background:var(--em2);border-radius:7px}
+.empty{color:var(--muted);font-size:.92rem}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tools input,.tools select{padding:8px 12px;border:1.5px solid #cbd5e1;border-radius:10px;background:#fff}
+.tools input{flex:1;min-width:180px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:860px}
+th{background:#f8fafc;text-align:right;padding:10px;color:var(--muted);font-weight:700;white-space:nowrap}
+td{padding:10px;border-top:1px solid var(--line);vertical-align:top}
+td select{padding:5px 8px;border:1.5px solid #cbd5e1;border-radius:8px;background:#fff}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
+.s-lead{background:#f1f5f9;color:#475569}.s-new{background:#fef3c7;color:#92400e}.s-ok{background:#dbeafe;color:#1d4ed8}
+.s-ship{background:#e0e7ff;color:#4338ca}.s-done{background:#d1fae5;color:#065f46}.s-x{background:#fee2e2;color:#991b1b}
+.note{width:130px;padding:5px 8px;border:1.5px solid #e2e8f0;border-radius:8px}
+/* دخول */
+#login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(160deg,#022c22,#064e3b);padding:16px}
+.lbox{background:#fff;border-radius:18px;padding:26px 22px;width:100%;max-width:420px}
+.lbox h2{color:var(--em);margin-bottom:4px}.lbox p{color:var(--muted);margin-bottom:14px;font-size:.92rem}
+.lbox label{display:block;font-weight:700;margin:10px 0 4px;font-size:.92rem}
+.lbox input{width:100%;padding:12px;border:1.5px solid #cbd5e1;border-radius:10px}
+.lbox .btn{width:100%;margin-top:16px;padding:13px}
+.err{color:var(--red);font-size:.9rem;margin-top:8px;min-height:1.3em}
+#toast{position:fixed;bottom:18px;inset-inline:0;margin:auto;width:max-content;max-width:90%;background:#0f172a;color:#fff;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
+#toast.show{opacity:1}
+.upd{color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form class="lbox" id="lform">
+    <h2>لوحة البائع — Crystal.shop</h2>
+    <p>أدخل رابط السكربت والمفتاح السري. يُحفظان في متصفحك فقط.</p>
+    <label for="lurl">رابط Google Apps Script (ينتهي بـ /exec)</label>
+    <input id="lurl" type="url" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec" required>
+    <label for="lkey">المفتاح السري</label>
+    <input id="lkey" type="password" dir="ltr" required>
+    <div class="err" id="lerr"></div>
+    <button class="btn" type="submit">دخول</button>
+  </form>
+</div>
+
+<div id="app" hidden>
+<header><div class="wrap">
+  <h1>لوحة البائع <em>Crystal.shop</em></h1>
+  <div class="hbtns"><span class="upd" id="upd"></span><button class="btn ghost sm" id="refresh">تحديث</button><button class="btn ghost sm" id="logout">خروج</button></div>
+</div></header>
+
+<main class="wrap">
+  <div class="range" id="range">
+    <button data-d="1" class="on">اليوم</button><button data-d="7">7 أيام</button><button data-d="30">30 يوماً</button><button data-d="0">الكل</button>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <div class="card"><h3>الزيارات والطلبات يومياً</h3><div class="chartbox"><canvas id="chart"></canvas></div></div>
+    <div class="card"><h3>مسار التحويل</h3><div class="bars" id="funnel"></div></div>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h3>الموديلات الأكثر طلباً</h3><div class="bars" id="byModel"></div></div>
+    <div class="card"><h3>المدن</h3><div class="bars" id="byCity"></div></div>
+    <div class="card"><h3>مصدر الزيارات</h3><div class="bars" id="bySrc"></div></div>
+    <div class="card"><h3>الأجهزة</h3><div class="bars" id="byDev"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>الطلبات</h3>
+    <div class="tools">
+      <input id="q" placeholder="بحث بالاسم أو الهاتف أو المدينة أو رقم الطلب">
+      <select id="fs"><option value="">كل الحالات</option></select>
+      <button class="btn sm" id="csv">تصدير Excel/CSV</button>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>التاريخ</th><th>رقم</th><th>الزبون</th><th>المدينة / العنوان</th><th>الطلب</th><th>الحالة</th><th>ملاحظة</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <p class="empty" id="noRows" hidden>لا توجد طلبات.</p>
+  </div>
+</main>
+</div>
+<div id="toast"></div>
+
+<script>
+const STATUSES = [
+  ['لم يؤكد بعد','s-lead','زبون ملأ الاستمارة ولم يرسل'],
+  ['أُرسل عبر واتساب','s-new','جديد'],
+  ['تم التأكيد','s-ok','تم التأكيد'],
+  ['تم الشحن','s-ship','تم الشحن'],
+  ['تم التسليم','s-done','تم التسليم'],
+  ['ملغى','s-x','ملغى / مرتجع']
+];
+const SALE = ['تم التأكيد','تم الشحن','تم التسليم'];   // تُحسب كمبيعات
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => Number(n || 0).toLocaleString('en-US');
+let DATA = { orders: [], visits: [] }, DAYS = 1, chart = null, timer = null;
+
+const cfg = () => ({ url: localStorage.getItem('cs_url') || '', key: localStorage.getItem('cs_key') || '' });
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+
+async function api(params){
+  const c = cfg();
+  const u = c.url + (c.url.includes('?') ? '&' : '?') + new URLSearchParams({ key: c.key, ...params });
+  const r = await fetch(u);
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'error');
+  return j;
+}
+
+/* ===== الدخول ===== */
+$('#lform').addEventListener('submit', async e => {
+  e.preventDefault();
+  localStorage.setItem('cs_url', $('#lurl').value.trim());
+  localStorage.setItem('cs_key', $('#lkey').value);
+  $('#lerr').textContent = 'جارٍ التحقق...';
+  try { await load(); show(); $('#lerr').textContent = ''; }
+  catch (er) { $('#lerr').textContent = er.message === 'unauthorized' ? 'المفتاح السري غير صحيح' : 'تعذر الاتصال بالسكربت. تأكد من الرابط ومن نشره لـ Anyone.'; }
+});
+function show(){ $('#login').hidden = true; $('#app').hidden = false; render(); clearInterval(timer); timer = setInterval(() => load().then(render).catch(()=>{}), 60000); }
+$('#logout').onclick = () => { localStorage.removeItem('cs_key'); location.reload(); };
+$('#refresh').onclick = () => load().then(() => { render(); toast('تم التحديث'); }).catch(() => toast('فشل التحديث'));
+
+async function load(){
+  const j = await api({ action: 'stats' });
+  DATA = { orders: j.orders || [], visits: j.visits || [] };
+  $('#upd').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-MA', { hour: '2-digit', minute: '2-digit' });
+}
+
+/* ===== حسابات ===== */
+const startOfDay = t => { const d = new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+function since(){ return DAYS === 0 ? 0 : startOfDay(Date.now()) - (DAYS - 1) * 864e5; }
+function pct(a, b){ return b ? (a / b * 100).toFixed(1) + '%' : '—'; }
+
+function bars(el, entries, total){
+  const box = $(el);
+  if (!entries.length){ box.innerHTML = '<p class="empty">لا توجد بيانات بعد.</p>'; return; }
+  const max = entries[0][1];
+  box.innerHTML = entries.slice(0, 8).map(([k, v]) =>
+    `<div><div class="t"><span>${esc(k)}</span><b>${fmt(v)}${total ? ' · ' + pct(v, total) : ''}</b></div><div class="bar"><i style="width:${v / max * 100}%"></i></div></div>`).join('');
+}
+function count(arr, fn){ const m = {}; arr.forEach(x => { const k = fn(x) || 'غير معروف'; m[k] = (m[k] || 0) + 1; }); return Object.entries(m).sort((a, b) => b[1] - a[1]); }
+
+function render(){
+  const s = since();
+  const V = DATA.visits.filter(v => v[0] >= s);
+  const O = DATA.orders.filter(o => o.time >= s);
+  const uniq = new Set(V.map(v => v[1])).size;
+  const leads = O.filter(o => o.status === 'لم يؤكد بعد');
+  const real = O.filter(o => o.status !== 'لم يؤكد بعد');
+  const sales = O.filter(o => SALE.includes(o.status));
+  const pending = O.filter(o => o.status === 'أُرسل عبر واتساب');
+  const canceled = O.filter(o => o.status === 'ملغى');
+  const rev = sales.reduce((a, o) => a + Number(o.total || 0), 0);
+  const delivered = O.filter(o => o.status === 'تم التسليم').reduce((a, o) => a + Number(o.total || 0), 0);
+
+  $('#kpis').innerHTML = [
+    ['', 'الزوار (فريدون)', fmt(uniq), fmt(V.length) + ' زيارة'],
+    ['', 'الطلبات المُرسلة', fmt(real.length), 'نسبة التحويل ' + pct(real.length, uniq)],
+    ['o', 'بانتظار التأكيد', fmt(pending.length), 'اتصل بهم'],
+    ['g', 'المبيعات المؤكدة', fmt(sales.length), 'تأكيد + شحن + تسليم'],
+    ['g', 'رقم المعاملات', fmt(rev) + ' د', 'المسلَّم فعلياً: ' + fmt(delivered) + ' د'],
+    ['r', 'طلبات غير مكتملة', fmt(leads.length), 'ملأوا الاستمارة فقط'],
+    ['r', 'ملغاة / مرتجعة', fmt(canceled.length), pct(canceled.length, real.length)]
+  ].map(k => `<div class="kpi ${k[0]}"><small>${k[1]}</small><b>${k[2]}</b><span>${k[3]}</span></div>`).join('');
+
+  $('#funnel').innerHTML = '';
+  const steps = [['زوار', uniq], ['ملأوا الاستمارة', leads.length + real.length], ['أرسلوا الطلب', real.length], ['تأكد الطلب', sales.length], ['سُلِّم', O.filter(o => o.status === 'تم التسليم').length]];
+  const mx = Math.max(1, steps[0][1]);
+  $('#funnel').innerHTML = steps.map(([k, v]) => `<div><div class="t"><span>${k}</span><b>${fmt(v)}${steps[0][1] ? ' · ' + pct(v, steps[0][1]) : ''}</b></div><div class="bar"><i style="width:${v / mx * 100}%"></i></div></div>`).join('');
+
+  bars('#byModel', count(real, o => o.model));
+  bars('#byCity', count(real, o => o.city), real.length);
+  bars('#bySrc', count(V.filter((v, i, a) => a.findIndex(x => x[1] === v[1]) === i), v => v[2]), uniq);
+  bars('#byDev', count(V.filter((v, i, a) => a.findIndex(x => x[1] === v[1]) === i), v => v[3]), uniq);
+
+  drawChart();
+  renderRows();
+}
+
+function drawChart(){
+  const n = DAYS === 0 ? 30 : Math.max(DAYS, 7);
+  const days = [], today = startOfDay(Date.now());
+  for (let i = n - 1; i >= 0; i--) days.push(today - i * 864e5);
+  const vis = days.map(d => new Set(DATA.visits.filter(v => v[0] >= d && v[0] < d + 864e5).map(v => v[1])).size);
+  const ord = days.map(d => DATA.orders.filter(o => o.time >= d && o.time < d + 864e5 && o.status !== 'لم يؤكد بعد').length);
+  const labels = days.map(d => new Date(d).toLocaleDateString('ar-MA', { day: 'numeric', month: 'numeric' }));
+  if (chart) chart.destroy();
+  chart = new Chart($('#chart'), {
+    data: { labels, datasets: [
+      { type: 'line', label: 'الطلبات', data: ord, borderColor: '#f59e0b', backgroundColor: '#f59e0b', tension: .3, yAxisID: 'y1' },
+      { type: 'bar', label: 'زوار فريدون', data: vis, backgroundColor: '#a7f3d0', borderRadius: 6, yAxisID: 'y' }
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } }, y1: { beginAtZero: true, position: 'right', grid: { display: false }, ticks: { precision: 0 } } } }
+  });
+}
+
+/* ===== جدول الطلبات ===== */
+STATUSES.forEach(s => { const o = document.createElement('option'); o.value = s[0]; o.textContent = s[0]; $('#fs').appendChild(o); });
+$('#q').oninput = renderRows; $('#fs').onchange = renderRows;
+
+function visible(){
+  const q = $('#q').value.trim().toLowerCase(), f = $('#fs').value, s = since();
+  return DATA.orders.filter(o => o.time >= s && (!f || o.status === f) &&
+    (!q || [o.name, o.phone, o.city, o.id, o.address].join(' ').toLowerCase().includes(q))).sort((a, b) => b.time - a.time);
+}
+function renderRows(){
+  const L = visible();
+  $('#noRows').hidden = L.length > 0;
+  $('#rows').innerHTML = L.map(o => {
+    const st = STATUSES.find(s => s[0] === o.status) || STATUSES[1];
+    const ph = String(o.phone || '').replace(/^0/, '212');
+    const msg = encodeURIComponent('سلام ' + o.name + '، معاك Crystal.shop. بخصوص طلبك (' + o.model + ') بمبلغ ' + o.total + ' درهم، واش نأكدو ليك الطلب؟');
+    return `<tr>
+      <td>${new Date(o.time).toLocaleString('ar-MA', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+      <td dir="ltr">${esc(o.id)}</td>
+      <td><b>${esc(o.name)}</b><br><span dir="ltr">${esc(o.phone)}</span></td>
+      <td>${esc(o.city)}<br><small>${esc(o.address)}</small></td>
+      <td>${esc(o.model)}<br>${esc(o.qty)} × — <b>${fmt(o.total)} د</b></td>
+      <td><span class="tag ${st[1]}">${esc(o.status)}</span><br>
+        <select data-id="${esc(o.id)}" class="stsel">${STATUSES.map(s => `<option ${s[0] === o.status ? 'selected' : ''}>${s[0]}</option>`).join('')}</select></td>
+      <td><input class="note" data-id="${esc(o.id)}" value="${esc(o.note)}" placeholder="ملاحظة"></td>
+      <td><a class="btn wa sm" target="_blank" rel="noopener" href="https://wa.me/${ph}?text=${msg}">واتساب</a></td></tr>`;
+  }).join('');
+  document.querySelectorAll('.stsel').forEach(s => s.onchange = async () => {
+    try { await api({ action: 'setStatus', id: s.dataset.id, status: s.value }); const o = DATA.orders.find(x => x.id === s.dataset.id); if (o) o.status = s.value; toast('تم تحديث الحالة'); render(); }
+    catch (e) { toast('فشل الحفظ'); }
+  });
+  document.querySelectorAll('.note').forEach(n => n.onchange = async () => {
+    try { await api({ action: 'setNote', id: n.dataset.id, note: n.value }); const o = DATA.orders.find(x => x.id === n.dataset.id); if (o) o.note = n.value; toast('تم حفظ الملاحظة'); }
+    catch (e) { toast('فشل الحفظ'); }
+  });
+}
+
+$('#csv').onclick = () => {
+  const rows = [['id','التاريخ','الحالة','الموديل','الكمية','المجموع','الاسم','الهاتف','المدينة','العنوان','المصدر','ملاحظة']];
+  visible().forEach(o => rows.push([o.id, new Date(o.time).toISOString().slice(0,16).replace('T',' '), o.status, o.model, o.qty, o.total, o.name, o.phone, o.city, o.address, o.source, o.note]));
+  const csv = '\ufeff' + rows.map(r => r.map(c => '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); a.download = 'orders.csv'; a.click();
+};
+
+$('#range').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#range button').forEach(x => x.classList.remove('on')); b.classList.add('on');
+  DAYS = parseInt(b.dataset.d, 10); render();
+});
+
+/* بدء تلقائي إذا كانت البيانات محفوظة */
+(function init(){
+  const c = cfg(); $('#lurl').value = c.url;
+  if (c.url && c.key) load().then(show).catch(() => {});
+})();
+</script>
+</body>
+</html>
