@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kristalechop-dot.github.io/Crystal-/sitemap.xml
